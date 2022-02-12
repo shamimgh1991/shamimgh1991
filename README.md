@@ -1,11 +1,31 @@
-- 👋 Hi, I’m @shamimgh1991
-- 👀 I’m interested in ...
-- 🌱 I’m currently learning ...
-- 💞️ I’m looking to collaborate on ...
-- 📫 How to reach me ...
 
-<!---
-shamimgh1991/shamimgh1991 is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
 
+makeCacheMatrix <- function(x = matrix()) {
+    i <- NULL
+    set <- function(y) {
+        x <<- y
+        i <<- NULL
+    }
+    get <- function() x
+    setinverse <- function(inv) i <<- inv
+    getinverse <- function() i
+    list(
+        set = set,
+        get = get,
+        setinverse = setinverse,
+        getinverse = getinverse
+    )
+}
+
+
+cacheSolve <- function(x, ...) {
+    i <- x$getinverse()
+    if(!is.null(i)) {
+        message("getting cached data")
+        return(i)
+    }
+    m <- x$get()
+    i <- solve(m, ...)
+    x$setinverse(i)
+    i
+}
